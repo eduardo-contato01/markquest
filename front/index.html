@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MarkQuest - Correção Automática de Cartões-Resposta</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Landing Page -->
+  <div id="landing-page" class="page active">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <h1>MarkQuest</h1>
+          </div>
+          <div class="header-nav">
+            <!-- Unified Navigation for Desktop and Mobile -->
+            <div class="header-buttons">
+              <button class="btn btn--outline btn--sm login-btn" onclick="goToLogin()">Login</button>
+              <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">Corrija cartões-resposta automaticamente</h1>
+          <p class="hero-subtitle">A forma mais rápida e precisa de avaliar respostas OMR</p>
+          <button class="btn btn--primary btn--lg" onclick="goToDashboard()">Testar agora</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Steps Section -->
+    <section class="steps">
+      <div class="container">
+        <h2 class="steps-main-title">Veja como funciona a correção</h2>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3 class="step-title">Faça upload do cartão</h3>
+            <p class="step-description">Envie sua imagem de cartão-resposta de forma simples</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3 class="step-title">O sistema detecta as marcações</h3>
+            <p class="step-description">Reconhecimento automático das respostas marcadas</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3 class="step-title">Veja o resultado instantâneo</h3>
+            <p class="step-description">Obtenha a correção em segundos</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Public Statistics Section -->
+    <section class="public-stats">
+      <div class="container">
+        <h2 class="section-title">Nossos Números</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value">1.850</div>
+            <div class="stat-label">Cartões-resposta lidos</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">38</div>
+            <div class="stat-label">Empresas atendidas</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">25</div>
+            <div class="stat-label">Atualizações de software</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <p>&copy; 2025 MarkQuest. Todos os direitos reservados.</p>
+          <a href="#" class="footer-link">Contato</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Main Sidebar -->
+  <aside class="main-sidebar">
+    <div class="sidebar-header">
+      <h2>MarkQuest</h2>
+      <button class="sidebar-close-btn" onclick="toggleSidebar()" aria-label="Fechar Menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <!-- Main Navigation -->
+      <a href="#" class="sidebar-link" onclick="goToHome()">
+        <i class="fas fa-home"></i>
+        <span>Início</span>
+      </a>
+      <a href="#" class="sidebar-link" onclick="goToAbout()">
+        <i class="fas fa-info-circle"></i>
+        <span>Sobre</span>
+      </a>
+      <a href="#" class="sidebar-link" onclick="goToDashboard()">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
+      <!-- Separator -->
+      <div class="sidebar-separator"></div>
+      <!-- Dashboard Features -->
+      <a href="#" class="sidebar-link" onclick="goToDashboardSection('enviar-cartao')">
+        <i class="fas fa-upload"></i>
+        <span>Enviar cartão</span>
+      </a>
+      <a href="#" class="sidebar-link" onclick="goToDashboardSection('gabaritos')">
+        <i class="fas fa-file-text"></i>
+        <span>Gabaritos</span>
+      </a>
+      <a href="#" class="sidebar-link" onclick="goToDashboardSection('relatorios')">
+        <i class="fas fa-chart-bar"></i>
+        <span>Relatórios</span>
+      </a>
+      <a href="#" class="sidebar-link" onclick="goToConfiguracoes()">
+        <i class="fas fa-cog"></i>
+        <span>Configurações</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <!-- Dashboard Page -->
+  <div id="dashboard-page" class="page">
+    <!-- Dashboard Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Dashboard</h2>
+        <button class="sidebar-close-btn" onclick="toggleDashboardSidebar()" aria-label="Fechar Menu">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="sidebar-link active" onclick="setActiveNav(this)">
+          <i class="fas fa-upload"></i>
+          <span>Enviar cartão</span>
+        </a>
+        <a href="#" class="sidebar-link" onclick="setActiveNav(this)">
+          <i class="fas fa-file-text"></i>
+          <span>Gabaritos</span>
+        </a>
+        <a href="#" class="sidebar-link" onclick="setActiveNav(this)">
+          <i class="fas fa-chart-bar"></i>
+          <span>Relatórios</span>
+        </a>
+        <a href="#" class="sidebar-link" onclick="setActiveNav(this)">
+          <i class="fas fa-cog"></i>
+          <span>Configurações</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="btn btn--outline btn--sm" onclick="goToHome()">Voltar ao início</button>
+      </div>
+
+    </aside>
+
+    <!-- Dashboard Sidebar Overlay -->
+    <div class="dashboard-sidebar-overlay" onclick="toggleDashboardSidebar()"></div>
+
+    <!-- Dashboard Header (same as main header) -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <h1>MarkQuest</h1>
+          </div>
+          <div class="header-nav">
+            <!-- Unified Navigation for Desktop and Mobile -->
+            <div class="header-buttons">
+              <button class="btn btn--outline btn--sm login-btn" onclick="goToLogin()">Login</button>
+              <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+      <!-- Dashboard Title -->
+      <div class="dashboard-title">
+        <h1>Dashboard</h1>
+        <div class="user-info">
+          <span>Bem-vindo!</span>
+        </div>
+      </div>
+
+      <!-- Upload Card -->
+      <section class="upload-section">
+        <div class="upload-card">
+          <div class="upload-icon">
+            <i class="fas fa-cloud-upload-alt"></i>
+          </div>
+          <h3>Envie um cartão-resposta para análise</h3>
+          <p>Selecione uma imagem do seu cartão-resposta para processamento automático</p>
+          <button class="btn btn--primary" onclick="handleUpload()">Fazer upload</button>
+          <input type="file" id="file-input" accept="image/*,application/pdf" style="display: none;"
+            onchange="processFile(this)">
+        </div>
+      </section>
+
+      <!-- Recent Uploads -->
+      <section class="recent-uploads">
+        <h2 class="section-title">Uploads recentes</h2>
+        <div class="uploads-list">
+          <div class="upload-item">
+            <div class="upload-info">
+              <span class="upload-filename">cartao_001.jpg</span>
+              <span class="upload-time">23/10/2025 10:15</span>
+            </div>
+            <span class="status status--success">Concluído</span>
+          </div>
+          <div class="upload-item">
+            <div class="upload-info">
+              <span class="upload-filename">cartao_002.jpg</span>
+              <span class="upload-time">23/10/2025 10:12</span>
+            </div>
+            <span class="status status--warning">Processando</span>
+          </div>
+          <div class="upload-item">
+            <div class="upload-info">
+              <span class="upload-filename">cartao_003.jpg</span>
+              <span class="upload-time">23/10/2025 10:08</span>
+            </div>
+            <span class="status status--error">Erro</span>
+          </div>
+          <div class="upload-item">
+            <div class="upload-info">
+              <span class="upload-filename">cartao_004.jpg</span>
+              <span class="upload-time">23/10/2025 10:05</span>
+            </div>
+            <span class="status status--success">Concluído</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Visualização de Resultados -->
+      <section class="results-visual">
+        <h2 class="section-title">Resultado da leitura</h2>
+
+        <!-- Balões de processamento -->
+        <div id="processing-balloons" class="card" style="padding: var(--space-5); display:none;"></div>
+
+        <!-- Painel de resultado -->
+        <div id="results-panel" class="card" style="margin-top: var(--space-4); display:none;">
+          <div class="card__body">
+            <div class="results-layout" style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-5);">
+              <!-- COLUNA ESQUERDA: imagem + overlay -->
+              <div>
+                <h3 style="margin-bottom: var(--space-3);">Imagem enviada</h3>
+                <div class="image-stack"
+                  style="position:relative; border:1px solid var(--color-card-border); border-radius: var(--radius-lg); overflow:hidden;">
+                  <img id="result-image" alt="Prévia do cartão" style="display:block; width:100%; height:auto;">
+                  <canvas id="result-overlay"
+                    style="position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none;"></canvas>
+                </div>
+                <div id="result-placeholder" style="margin-top:8px; color: var(--color-text-secondary);"></div>
+              </div>
+
+              <!-- COLUNA DIREITA: marcações em 2 colunas -->
+              <div>
+                <h3 style="margin-bottom: var(--space-3);">Marcações detectadas</h3>
+                <div class="answers-columns" style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-3);">
+                  <div id="answers-col-1" style="display:flex; flex-direction:column; gap: var(--space-2);"></div>
+                  <div id="answers-col-2" style="display:flex; flex-direction:column; gap: var(--space-2);"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Statistics -->
+      <section class="stats-section">
+        <h2 class="section-title">Desempenho geral</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value">156</div>
+            <div class="stat-label">Total processado</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">94.2%</div>
+            <div class="stat-label">Taxa de sucesso</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">87.5%</div>
+            <div class="stat-label">Precisão média</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- About Page -->
+  <div id="about-page" class="page">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <h1>MarkQuest</h1>
+          </div>
+          <div class="header-nav">
+            <div class="header-buttons">
+              <button class="btn btn--outline btn--sm login-btn" onclick="goToLogin()">Login</button>
+              <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="about-main">
+      <!-- Hero Section -->
+      <section class="about-hero">
+        <div class="container">
+          <div class="about-hero-content">
+            <h1 class="about-hero-title">Sobre o MarkQuest</h1>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Sections -->
+      <div class="container">
+        <div class="about-content">
+          <!-- Introdução -->
+          <section class="about-section">
+            <h2>O que é o MarkQuest</h2>
+            <p>O MarkQuest é uma plataforma moderna de correção automática de cartões-resposta utilizando tecnologia OMR
+              (Optical Mark Recognition). Facilitamos a correção de avaliações, provas e questionários de forma rápida,
+              precisa e eficiente.</p>
+          </section>
+
+          <!-- Nossa Missão -->
+          <section class="about-section">
+            <h2>Nossa Missão</h2>
+            <p>Democratizar o acesso à tecnologia de correção automática, tornando o processo de avaliação mais ágil e
+              confiável para instituições de ensino e empresas.</p>
+          </section>
+
+          <!-- Como Funciona -->
+          <section class="about-section">
+            <h2>Como Funciona</h2>
+            <p>Utilizamos algoritmos avançados de processamento de imagem para identificar marcações em
+              cartões-resposta, comparar com gabaritos e gerar relatórios detalhados instantaneamente.</p>
+          </section>
+
+          <!-- Benefícios -->
+          <section class="about-section">
+            <h2>Benefícios</h2>
+            <div class="benefits-grid">
+              <div class="benefit-card">
+                <div class="benefit-icon">
+                  <i class="fas fa-clock"></i>
+                </div>
+                <h3>Economia de tempo na correção</h3>
+              </div>
+              <div class="benefit-card">
+                <div class="benefit-icon">
+                  <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Redução de erros humanos</h3>
+              </div>
+              <div class="benefit-card">
+                <div class="benefit-icon">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Relatórios automatizados</h3>
+              </div>
+              <div class="benefit-card">
+                <div class="benefit-icon">
+                  <i class="fas fa-user-friendly"></i>
+                </div>
+                <h3>Interface intuitiva</h3>
+              </div>
+              <div class="benefit-card">
+                <div class="benefit-icon">
+                  <i class="fas fa-file-alt"></i>
+                </div>
+                <h3>Suporte a múltiplos formatos de cartão</h3>
+              </div>
+            </div>
+          </section>
+
+          <!-- Tecnologia -->
+          <section class="about-section">
+            <h2>Tecnologia</h2>
+            <p>Nossa plataforma utiliza tecnologia de ponta em reconhecimento óptico, machine learning e processamento
+              de imagens para garantir precisão superior a 95% na detecção de marcações.</p>
+          </section>
+
+          <!-- Contato -->
+          <section class="about-section">
+            <h2>Contato</h2>
+            <div class="contact-info">
+              <p>Entre em contato: <a href="mailto:contato@markquest.com">contato@markquest.com</a> | <a
+                  href="tel:+5511999999999">(11) 9999-9999</a></p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <p>&copy; 2025 MarkQuest. Todos os direitos reservados.</p>
+          <a href="#" class="footer-link">Contato</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Configurações Page -->
+  <div id="configuracoes-page" class="page">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <h1>MarkQuest</h1>
+          </div>
+          <div class="header-nav">
+            <div class="header-buttons">
+              <button class="btn btn--outline btn--sm login-btn" onclick="goToLogin()">Login</button>
+              <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="configuracoes-main">
+      <!-- Page Title -->
+      <div class="container">
+        <div class="page-title">
+          <h1>Configurações</h1>
+        </div>
+      </div>
+
+      <!-- Settings Content -->
+      <div class="container">
+        <div class="settings-grid">
+          <!-- Aparência -->
+          <section class="settings-section">
+            <div class="settings-card">
+              <h2>Aparência</h2>
+              <p class="theme-description">Escolha o tema de sua preferência</p>
+              <div class="theme-toggle-container">
+                <div class="theme-option">
+                  <div class="theme-option-info">
+                    <div class="theme-icon">☀️</div>
+                    <span class="theme-label">Modo Claro</span>
+                  </div>
+                  <label class="theme-toggle">
+                    <input type="radio" name="theme" value="light" id="theme-light" checked
+                      onchange="toggleTheme('light')">
+                    <span class="theme-radio"></span>
+                  </label>
+                </div>
+                <div class="theme-option">
+                  <div class="theme-option-info">
+                    <div class="theme-icon">🌙</div>
+                    <span class="theme-label">Modo Escuro</span>
+                  </div>
+                  <label class="theme-toggle">
+                    <input type="radio" name="theme" value="dark" id="theme-dark" onchange="toggleTheme('dark')">
+                    <span class="theme-radio"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Perfil do Usuário -->
+          <section class="settings-section">
+            <div class="settings-card">
+              <h2>Perfil do Usuário</h2>
+              <div class="form-group">
+                <label class="form-label" for="nome-completo">Nome completo</label>
+                <input type="text" id="nome-completo" class="form-control" value="João Silva">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" id="email" class="form-control" value="joao.silva@email.com">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="telefone">Telefone</label>
+                <input type="tel" id="telefone" class="form-control" value="(11) 98765-4321">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="instituicao">Instituição/Empresa</label>
+                <input type="text" id="instituicao" class="form-control" value="Universidade Exemplo">
+              </div>
+              <button class="btn btn--primary" onclick="salvarPerfil()">Salvar alterações</button>
+            </div>
+          </section>
+
+          <!-- Preferências de Notificação -->
+          <section class="settings-section">
+            <div class="settings-card">
+              <h2>Preferências de Notificação</h2>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="email-notifications" checked>
+                  <span class="checkbox-text">Receber notificações por email</span>
+                </label>
+              </div>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="processing-notifications" checked>
+                  <span class="checkbox-text">Notificar quando processamento concluir</span>
+                </label>
+              </div>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="error-notifications" checked>
+                  <span class="checkbox-text">Alertas de erros no processamento</span>
+                </label>
+              </div>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="update-notifications">
+                  <span class="checkbox-text">Novidades e atualizações do sistema</span>
+                </label>
+              </div>
+              <button class="btn btn--primary" onclick="salvarNotificacoes()">Salvar preferências</button>
+            </div>
+          </section>
+
+          <!-- Configurações de Correção -->
+          <section class="settings-section">
+            <div class="settings-card">
+              <h2>Configurações de Correção</h2>
+              <div class="form-group">
+                <label class="form-label" for="tolerancia">Tolerância de detecção</label>
+                <select id="tolerancia" class="form-control">
+                  <option value="baixa">Baixa</option>
+                  <option value="media" selected>Média</option>
+                  <option value="alta">Alta</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="formato-cartao">Formato padrão de cartão</label>
+                <select id="formato-cartao" class="form-control">
+                  <option value="enem" selected>Padrão ENEM</option>
+                  <option value="vestibular">Vestibular</option>
+                  <option value="customizado">Customizado</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="formato-exportacao">Exportação de resultados</label>
+                <select id="formato-exportacao" class="form-control">
+                  <option value="pdf" selected>PDF</option>
+                  <option value="excel">Excel</option>
+                  <option value="csv">CSV</option>
+                </select>
+              </div>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="auto-save-templates" checked>
+                  <span class="checkbox-text">Salvar gabaritos automaticamente</span>
+                </label>
+              </div>
+              <button class="btn btn--primary" onclick="salvarCorrecao()">Salvar configurações</button>
+            </div>
+          </section>
+
+          <!-- Segurança -->
+          <section class="settings-section">
+            <div class="settings-card">
+              <h2>Segurança</h2>
+              <div class="security-item">
+                <div class="security-info">
+                  <h3>Alterar senha</h3>
+                  <p>Altere sua senha de acesso</p>
+                </div>
+                <button class="btn btn--outline" onclick="alterarSenha()">Alterar senha</button>
+              </div>
+              <div class="security-item">
+                <div class="security-info">
+                  <h3>Autenticação em dois fatores</h3>
+                  <p>Adicione uma camada extra de segurança</p>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="two-factor">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="security-item">
+                <div class="security-info">
+                  <h3>Sessões ativas</h3>
+                  <p>2 dispositivos conectados</p>
+                </div>
+                <button class="btn btn--outline" onclick="gerenciarSessoes()">Gerenciar</button>
+              </div>
+              <button class="btn btn--outline btn--destructive" onclick="encerrarSessoes()">Encerrar todas as
+                sessões</button>
+            </div>
+          </section>
+
+          <!-- Plano e Faturamento -->
+          <section class="settings-section">
+            <div class="settings-card">
+              <h2>Plano e Faturamento</h2>
+              <div class="plan-info">
+                <div class="plan-item">
+                  <span class="plan-label">Plano atual:</span>
+                  <span class="plan-value">Plano Básico</span>
+                </div>
+                <div class="plan-item">
+                  <span class="plan-label">Créditos disponíveis:</span>
+                  <span class="plan-value">250 cartões restantes</span>
+                </div>
+                <div class="plan-item">
+                  <span class="plan-label">Próximo pagamento:</span>
+                  <span class="plan-value">15/11/2025</span>
+                </div>
+              </div>
+              <div class="plan-actions">
+                <button class="btn btn--primary" onclick="gerenciarPlano()">Gerenciar plano</button>
+                <button class="btn btn--outline" onclick="historicoPagamentos()">Histórico de pagamentos</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Dados e Privacidade -->
+          <section class="settings-section">
+            <div class="settings-card">
+              <h2>Dados e Privacidade</h2>
+              <div class="privacy-actions">
+                <button class="btn btn--outline" onclick="exportarDados()">Exportar meus dados</button>
+                <button class="btn btn--outline btn--destructive" onclick="excluirConta()">Excluir minha conta</button>
+              </div>
+              <div class="privacy-links">
+                <a href="#" class="privacy-link" onclick="abrirPoliticaPrivacidade()" target="_blank">Política de
+                  Privacidade</a>
+                <a href="#" class="privacy-link" onclick="abrirTermosUso()" target="_blank">Termos de Uso</a>
+              </div>
+            </div>
+          </section>
+
+          <!-- Sobre o Sistema -->
+          <section class="settings-section">
+            <div class="settings-card">
+              <h2>Sobre o Sistema</h2>
+              <div class="system-info">
+                <div class="system-item">
+                  <span class="system-label">Versão do sistema:</span>
+                  <span class="system-value">v2.3.1</span>
+                </div>
+                <div class="system-item">
+                  <span class="system-label">Última atualização:</span>
+                  <span class="system-value">20/10/2025</span>
+                </div>
+              </div>
+              <div class="system-links">
+                <a href="#" class="system-link" onclick="abrirChangelog()" target="_blank">Changelog</a>
+                <a href="#" class="system-link" onclick="abrirSuporte()" target="_blank">Suporte técnico</a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <p>&copy; 2025 MarkQuest. Todos os direitos reservados.</p>
+          <a href="#" class="footer-link">Contato</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div id="details-modal" class="card" style="
+  display:none; position:fixed; inset:5vh 5vw; max-height:90vh;
+  background:var(--color-surface); z-index:1001; box-shadow:var(--shadow-xl);
+  overflow:auto; border-radius:var(--radius-lg);">
+    <div class="card__header"
+      style="display:flex; align-items:center; justify-content:space-between; padding:var(--space-4);">
+      <h3 id="details-title">Detalhes do processamento</h3>
+      <button class="btn btn--outline btn--sm" onclick="closeDetails()">Fechar</button>
+    </div>
+    <div class="card__body" style="padding: var(--space-4); max-height: calc(90vh - 64px); overflow:auto; -webkit-overflow-scrolling: touch;">
+      <!-- Reaproveitamos o mesmo layout do painel principal -->
+      <div id="details-content"></div>
+    </div>
+  </div>
+  <div id="details-backdrop" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:1000;"
+    onclick="closeDetails()"></div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
