@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import OMRTemplateDesigner from "./components/OMRTemplateDesigner";
 
 export default function App() {
   useEffect(() => {
@@ -13,6 +14,14 @@ export default function App() {
 
   return (
     <>
+      <div className="min-h-screen bg-gray-100 p-6">
+        <OMRTemplateDesigner />
+      </div>
+
+      <a href="#" class="sidebar-link" onclick="showDashboardSection('designer')">
+        <i class="fas fa-th"></i><span>Designer</span>
+      </a>
+
       {/* ===== Landing Page ===== */}
       <div id="landing-page" className="page active">
         {/* Header */}

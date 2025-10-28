@@ -98,6 +98,19 @@ function goToDashboardSection(section) {
     case 'gabaritos':     showNotification('Seção "Gabaritos" em desenvolvimento'); break;
     case 'relatorios':    showNotification('Seção "Relatórios" em desenvolvimento'); break;
     case 'configuracoes': goToConfiguracoes(); break;
+
+    case 'designer':
+      // 1) preferível: chamar a função exposta pelo React
+      if (typeof window.showDesigner === 'function') {
+        window.showDesigner();
+      } else {
+        // 2) fallback simples: usa hash/rota (se ainda não conectou o hook do React)
+        window.location.hash = '#/designer';
+        showNotification('Abrindo Designer…', 'info');
+      }
+      break;
+
+
     default:              showNotification(`Seção "${section}" em desenvolvimento`);
   }
 }
