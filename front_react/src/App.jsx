@@ -2,24 +2,21 @@ import { useEffect } from "react";
 import OMRTemplateDesigner from "./components/OMRTemplateDesigner";
 
 export default function App() {
+
   useEffect(() => {
     // injeta a variável global para o legado
     window.VITE_API_BASE = import.meta.env.VITE_API_BASE;
-    import('./legacy/app-legacy.js').then(m => m.boot?.());
+
+    if (!window.__legacyReady) {
+      import("./legacy/app-legacy.js").then((m) => m.boot?.());
+    }
   }, []);
-  // Carrega o legado (app-legacy.js) e executa init() via boot()
-  useEffect(() => {
-    import("./legacy/app-legacy.js").then((m) => m.boot?.());
-  }, []);
+
 
   return (
     <>
-      <div className="min-h-screen bg-gray-100 p-6">
-        <OMRTemplateDesigner />
-      </div>
-
-      <a href="#" class="sidebar-link" onclick="showDashboardSection('designer')">
-        <i class="fas fa-th"></i><span>Designer</span>
+      <a href="#" className="sidebar-link" onclick="showDashboardSection('designer')">
+        <i className="fas fa-th"></i><span>Designer</span>
       </a>
 
       {/* ===== Landing Page ===== */}
@@ -348,6 +345,13 @@ export default function App() {
                 <div className="stat-label">Precisão média</div>
               </div>
             </div>
+          </section>
+          <section>
+
+            <div className="min-h-screen bg-gray-100 p-6">
+              <OMRTemplateDesigner />
+            </div>
+
           </section>
         </main>
       </div>
