@@ -9,8 +9,10 @@
 
 3. modernizar a parte de upload/detalhes com React puro (sem depender do app-legacy.js).
 
-2. Alterar aspecto visual do Template
+4. Alterar aspecto visual do Template
 
-3. Adicionar novo botão de Preços e Planos
+5. Adicionar novo botão de Preços e Planos - topo da página
 
-4. Mudar botão loguin para azul
+6. Mudar botão login para azul.
+
+7. Gerar relátorio por objetivos. (Ainda pode evoluir)

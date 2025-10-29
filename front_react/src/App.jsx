@@ -28,7 +28,7 @@ export default function App() {
 
   return (
     <>
-      {/* ===== Main Sidebar (global) ===== */}
+      {/* ===== Main Sidebar (global) VAI VIRAR COMPONENTE ===== */}
       <aside className="main-sidebar">
         <div className="sidebar-header">
           <h2>MarkQuest</h2>
@@ -89,7 +89,7 @@ export default function App() {
           path="/"
           element={
             <div id="landing-page" className="page active">
-              {/* Header */}
+              {/* Header - VAI VIRAR COMPONENTE*/}
               <header className="header">
                 <div className="container">
                   <div className="header-content">
@@ -180,7 +180,7 @@ export default function App() {
                 </div>
               </section>
 
-              {/* Footer */}
+              {/* Footer - VAI VIRAR COMPONENTE */}
               <footer className="footer">
                 <div className="container">
                   <div className="footer-content">
@@ -195,7 +195,7 @@ export default function App() {
 
         <Route path="/dashboard" element={<Dashboard />} />
 
-        {/* About (pode evoluir depois) */}
+        {/* About (pode evoluir depois) - VAI VIRAR COMPONENTE*/}
         <Route
           path="/about"
           element={
@@ -250,7 +250,7 @@ export default function App() {
           }
         />
 
-        {/* Configurações (pode evoluir depois) */}
+        {/* Configurações (pode evoluir depois) - VAI VIRAR COMPONENTE*/}
         <Route
           path="/config"
           element={
@@ -270,15 +270,239 @@ export default function App() {
                   </div>
                 </div>
               </header>
-
-              <main className="configuracoes-main">
-                <div className="container">
-                  <div className="page-title">
-                    <h1>Configurações</h1>
+                {/* Main */}
+                <main className="configuracoes-main">
+                  <div className="container">
+                    <div className="page-title">
+                      <h1>Configurações</h1>
+                    </div>
                   </div>
-                </div>
-                {/* Aqui você pode colar depois todo o grid de configurações completo */}
-              </main>
+
+                  <div className="container">
+                    <div className="settings-grid">
+                      {/* Aparência */}
+                      <section className="settings-section">
+                        <div className="settings-card">
+                          <h2>Aparência</h2>
+                          <p className="theme-description">Escolha o tema de sua preferência</p>
+                          <div className="theme-toggle-container">
+                            <div className="theme-option">
+                              <div className="theme-option-info">
+                                <div className="theme-icon">☀️</div>
+                                <span className="theme-label">Modo Claro</span>
+                              </div>
+                              <label className="theme-toggle">
+                                <input type="radio" name="theme" value="light" id="theme-light" defaultChecked onChange={() => window.toggleTheme?.("light") } />
+                                <span className="theme-radio"></span>
+                              </label>
+                            </div>
+                            <div className="theme-option">
+                              <div className="theme-option-info">
+                                <div className="theme-icon">🌙</div>
+                                <span className="theme-label">Modo Escuro</span>
+                              </div>
+                              <label className="theme-toggle">
+                                <input type="radio" name="theme" value="dark" id="theme-dark" onChange={() => window.toggleTheme?.("dark") } />
+                                <span className="theme-radio"></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+
+                      {/* Perfil do Usuário */}
+                      <section className="settings-section">
+                        <div className="settings-card">
+                          <h2>Perfil do Usuário</h2>
+                          <div className="form-group">
+                            <label className="form-label" htmlFor="nome-completo">Nome completo</label>
+                            <input type="text" id="nome-completo" className="form-control" defaultValue="João Silva" />
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label" htmlFor="email">Email</label>
+                            <input type="email" id="email" className="form-control" defaultValue="joao.silva@email.com" />
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label" htmlFor="telefone">Telefone</label>
+                            <input type="tel" id="telefone" className="form-control" defaultValue="(11) 98765-4321" />
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label" htmlFor="instituicao">Instituição/Empresa</label>
+                            <input type="text" id="instituicao" className="form-control" defaultValue="Universidade Exemplo" />
+                          </div>
+                          <button className="btn btn--primary" onClick={() => window.salvarPerfil?.()}>Salvar alterações</button>
+                        </div>
+                      </section>
+
+                      {/* Preferências de Notificação */}
+                      <section className="settings-section">
+                        <div className="settings-card">
+                          <h2>Preferências de Notificação</h2>
+                          <div className="checkbox-group">
+                            <label className="checkbox-label">
+                              <input type="checkbox" id="email-notifications" defaultChecked />
+                              <span className="checkbox-text">Receber notificações por email</span>
+                            </label>
+                          </div>
+                          <div className="checkbox-group">
+                            <label className="checkbox-label">
+                              <input type="checkbox" id="processing-notifications" defaultChecked />
+                              <span className="checkbox-text">Notificar quando processamento concluir</span>
+                            </label>
+                          </div>
+                          <div className="checkbox-group">
+                            <label className="checkbox-label">
+                              <input type="checkbox" id="error-notifications" defaultChecked />
+                              <span className="checkbox-text">Alertas de erros no processamento</span>
+                            </label>
+                          </div>
+                          <div className="checkbox-group">
+                            <label className="checkbox-label">
+                              <input type="checkbox" id="update-notifications" />
+                              <span className="checkbox-text">Novidades e atualizações do sistema</span>
+                            </label>
+                          </div>
+                          <button className="btn btn--primary" onClick={() => window.salvarNotificacoes?.()}>Salvar preferências</button>
+                        </div>
+                      </section>
+
+                      {/* Configurações de Correção */}
+                      <section className="settings-section">
+                        <div className="settings-card">
+                          <h2>Configurações de Correção</h2>
+                          <div className="form-group">
+                            <label className="form-label" htmlFor="tolerancia">Tolerância de detecção</label>
+                            <select id="tolerancia" className="form-control" defaultValue="media">
+                              <option value="baixa">Baixa</option>
+                              <option value="media">Média</option>
+                              <option value="alta">Alta</option>
+                            </select>
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label" htmlFor="formato-cartao">Formato padrão de cartão</label>
+                            <select id="formato-cartao" className="form-control" defaultValue="enem">
+                              <option value="enem">Padrão ENEM</option>
+                              <option value="vestibular">Vestibular</option>
+                              <option value="customizado">Customizado</option>
+                            </select>
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label" htmlFor="formato-exportacao">Exportação de resultados</label>
+                            <select id="formato-exportacao" className="form-control" defaultValue="pdf">
+                              <option value="pdf">PDF</option>
+                              <option value="excel">Excel</option>
+                              <option value="csv">CSV</option>
+                            </select>
+                          </div>
+                          <div className="checkbox-group">
+                            <label className="checkbox-label">
+                              <input type="checkbox" id="auto-save-templates" defaultChecked />
+                              <span className="checkbox-text">Salvar gabaritos automaticamente</span>
+                            </label>
+                          </div>
+                          <button className="btn btn--primary" onClick={() => window.salvarCorrecao?.()}>Salvar configurações</button>
+                        </div>
+                      </section>
+
+                      {/* Segurança */}
+                      <section className="settings-section">
+                        <div className="settings-card">
+                          <h2>Segurança</h2>
+                          <div className="security-item">
+                            <div className="security-info">
+                              <h3>Alterar senha</h3>
+                              <p>Altere sua senha de acesso</p>
+                            </div>
+                            <button className="btn btn--outline" onClick={() => window.alterarSenha?.()}>Alterar senha</button>
+                          </div>
+                          <div className="security-item">
+                            <div className="security-info">
+                              <h3>Autenticação em dois fatores</h3>
+                              <p>Adicione uma camada extra de segurança</p>
+                            </div>
+                            <label className="toggle-switch">
+                              <input type="checkbox" id="two-factor" />
+                              <span className="toggle-slider"></span>
+                            </label>
+                          </div>
+                          <div className="security-item">
+                            <div className="security-info">
+                              <h3>Sessões ativas</h3>
+                              <p>2 dispositivos conectados</p>
+                            </div>
+                            <button className="btn btn--outline" onClick={() => window.gerenciarSessoes?.()}>Gerenciar</button>
+                          </div>
+                          <button className="btn btn--outline btn--destructive" onClick={() => window.encerrarSessoes?.()}>
+                            Encerrar todas as sessões
+                          </button>
+                        </div>
+                      </section>
+
+                      {/* Plano e Faturamento */}
+                      <section className="settings-section">
+                        <div className="settings-card">
+                          <h2>Plano e Faturamento</h2>
+                          <div className="plan-info">
+                            <div className="plan-item">
+                              <span className="plan-label">Plano atual:</span>
+                              <span className="plan-value">Plano Básico</span>
+                            </div>
+                            <div className="plan-item">
+                              <span className="plan-label">Créditos disponíveis:</span>
+                              <span className="plan-value">250 cartões restantes</span>
+                            </div>
+                            <div className="plan-item">
+                              <span className="plan-label">Próximo pagamento:</span>
+                              <span className="plan-value">15/11/2025</span>
+                            </div>
+                          </div>
+                          <div className="plan-actions">
+                            <button className="btn btn--primary" onClick={() => window.gerenciarPlano?.()}>Gerenciar plano</button>
+                            <button className="btn btn--outline" onClick={() => window.historicoPagamentos?.()}>Histórico de pagamentos</button>
+                          </div>
+                        </div>
+                      </section>
+
+                      {/* Dados e Privacidade */}
+                      <section className="settings-section">
+                        <div className="settings-card">
+                          <h2>Dados e Privacidade</h2>
+                          <div className="privacy-actions">
+                            <button className="btn btn--outline" onClick={() => window.exportarDados?.()}>Exportar meus dados</button>
+                            <button className="btn btn--outline btn--destructive" onClick={() => window.excluirConta?.()}>
+                              Excluir minha conta
+                            </button>
+                          </div>
+                          <div className="privacy-links">
+                            <a href="#" className="privacy-link" onClick={(e) => { e.preventDefault(); window.abrirPoliticaPrivacidade?.(); }} target="_blank">Política de Privacidade</a>
+                            <a href="#" className="privacy-link" onClick={(e) => { e.preventDefault(); window.abrirTermosUso?.(); }} target="_blank">Termos de Uso</a>
+                          </div>
+                        </div>
+                      </section>
+
+                      {/* Sobre o Sistema */}
+                      <section className="settings-section">
+                        <div className="settings-card">
+                          <h2>Sobre o Sistema</h2>
+                          <div className="system-info">
+                            <div className="system-item">
+                              <span className="system-label">Versão do sistema:</span>
+                              <span className="system-value">v2.3.1</span>
+                            </div>
+                            <div className="system-item">
+                              <span className="system-label">Última atualização:</span>
+                              <span className="system-value">20/10/2025</span>
+                            </div>
+                          </div>
+                          <div className="system-links">
+                            <a href="#" className="system-link" onClick={(e) => { e.preventDefault(); window.abrirChangelog?.(); }} target="_blank">Changelog</a>
+                            <a href="#" className="system-link" onClick={(e) => { e.preventDefault(); window.abrirSuporte?.(); }} target="_blank">Suporte técnico</a>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+                </main>
 
               <footer className="footer">
                 <div className="container">
@@ -293,7 +517,7 @@ export default function App() {
         />
       </Routes>
 
-      {/* ===== Modal de Detalhes (global) ===== */}
+      {/* ===== Modal de Detalhes (global) ===== VAI VIRAR COMPONENTE */}
       <div
         id="details-modal"
         className="card"
