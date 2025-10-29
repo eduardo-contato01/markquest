@@ -270,6 +270,13 @@ export default function App() {
                   </div>
                 </div>
               </header>
+
+              <main className="configuracoes-main">
+                <div className="container">
+                  <div className="page-title">
+                    <h1>Configurações</h1>
+                  </div>
+                </div>
                 {/* Main */}
                 <main className="configuracoes-main">
                   <div className="container">
@@ -503,6 +510,7 @@ export default function App() {
                     </div>
                   </div>
                 </main>
+              </main>
 
               <footer className="footer">
                 <div className="container">
