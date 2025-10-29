@@ -83,5 +83,3 @@ Abra o arquivo no navegador e lembre-se de ajustar `API_URL` no `script.js` se m
 2. **Templates configuráveis**: um arquivo JSON com as coordenadas das áreas de questões para diferentes folhas.
 3. **Confiança e validação**: detectar múltiplas marcações, omissões e retornar `confidence`.
 4. **Suporte a PDF**: converter página para imagem antes (ex.: `pdf2image`).
-
-Se quiser, posso te entregar a **versão 2** com um leitor simples de bolhas usando OpenCV e um **template JSON** de exemplo.
