@@ -16,3 +16,5 @@
 6. Mudar botão login para azul.
 
 7. Gerar relátorio por objetivos. (Ainda pode evoluir)
+
+8. Modo noturno com botão lado a lado. (autentucação de dois fatores do bloco segurança)
