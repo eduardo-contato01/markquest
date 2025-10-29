@@ -18,67 +18,99 @@ let stats = { total_processed: 156, success_rate: 94.2, average_accuracy: 87.5 }
 
 // ------------------------ Navegação de páginas ------------------------
 function goToDashboard() {
+  // usa o Router moderno, se existir
+  if (typeof window.__routerNavigate === "function") {
+    window.__routerNavigate("/dashboard");
+    closeMainSidebar();
+    currentPage = 'dashboard';
+    document.title = 'Dashboard - MarkQuest';
+    return;
+  }
+
+  // fallback seguro (antigo)
   const landingPage = document.getElementById('landing-page');
   const dashboardPage = document.getElementById('dashboard-page');
   const aboutPage = document.getElementById('about-page');
   const configuracoesPage = document.getElementById('configuracoes-page');
 
-  landingPage.classList.remove('active');
-  aboutPage.classList.remove('active');
-  configuracoesPage.classList.remove('active');
-  dashboardPage.classList.add('active');
+  landingPage?.classList?.remove('active');
+  aboutPage?.classList?.remove('active');
+  configuracoesPage?.classList?.remove('active');
+  dashboardPage?.classList?.add('active');
   currentPage = 'dashboard';
-
   closeMainSidebar();
   document.title = 'Dashboard - MarkQuest';
 }
 function showDashboard(){ goToDashboard(); }
 
 function goToHome() {
+  if (typeof window.__routerNavigate === "function") {
+    window.__routerNavigate("/");
+    closeMainSidebar();
+    closeDashboardSidebar();
+    currentPage = 'landing';
+    document.title = 'MarkQuest - Correção Automática de Cartões-Resposta';
+    return;
+  }
+
   const landingPage = document.getElementById('landing-page');
   const dashboardPage = document.getElementById('dashboard-page');
   const aboutPage = document.getElementById('about-page');
   const configuracoesPage = document.getElementById('configuracoes-page');
 
-  dashboardPage.classList.remove('active');
-  aboutPage.classList.remove('active');
-  configuracoesPage.classList.remove('active');
-  landingPage.classList.add('active');
+  dashboardPage?.classList?.remove('active');
+  aboutPage?.classList?.remove('active');
+  configuracoesPage?.classList?.remove('active');
+  landingPage?.classList?.add('active');
   currentPage = 'landing';
-
   closeMainSidebar();
   closeDashboardSidebar();
   document.title = 'MarkQuest - Correção Automática de Cartões-Resposta';
 }
 
 function goToAbout() {
+  if (typeof window.__routerNavigate === "function") {
+    window.__routerNavigate("/about");
+    closeMainSidebar();
+    currentPage = 'about';
+    document.title = 'Sobre - MarkQuest';
+    return;
+  }
+
   const landingPage = document.getElementById('landing-page');
   const dashboardPage = document.getElementById('dashboard-page');
   const aboutPage = document.getElementById('about-page');
   const configuracoesPage = document.getElementById('configuracoes-page');
 
-  landingPage.classList.remove('active');
-  dashboardPage.classList.remove('active');
-  configuracoesPage.classList.remove('active');
-  aboutPage.classList.add('active');
+  landingPage?.classList?.remove('active');
+  dashboardPage?.classList?.remove('active');
+  configuracoesPage?.classList?.remove('active');
+  aboutPage?.classList?.add('active');
   currentPage = 'about';
-
   closeMainSidebar();
   document.title = 'Sobre - MarkQuest';
 }
 
 function goToConfiguracoes() {
+  if (typeof window.__routerNavigate === "function") {
+    window.__routerNavigate("/config");
+    closeMainSidebar();
+    setTimeout(updateThemeControls, 100);
+    currentPage = 'configuracoes';
+    document.title = 'Configurações - MarkQuest';
+    return;
+  }
+
   const landingPage = document.getElementById('landing-page');
   const dashboardPage = document.getElementById('dashboard-page');
   const aboutPage = document.getElementById('about-page');
   const configuracoesPage = document.getElementById('configuracoes-page');
 
-  landingPage.classList.remove('active');
-  dashboardPage.classList.remove('active');
-  aboutPage.classList.remove('active');
-  configuracoesPage.classList.add('active');
+  landingPage?.classList?.remove('active');
+  dashboardPage?.classList?.remove('active');
+  aboutPage?.classList?.remove('active');
+  configuracoesPage?.classList?.add('active');
   currentPage = 'configuracoes';
-
   closeMainSidebar();
   setTimeout(updateThemeControls, 100);
   document.title = 'Configurações - MarkQuest';
