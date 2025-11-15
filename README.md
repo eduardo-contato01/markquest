@@ -1,8 +1,8 @@
 # OMR API Starter (FastAPI + OpenCV) — para iniciantes
 
-Este projeto é um **pontapé inicial** para integrar seu site com uma **API de leitura de cartões-resposta (OMR)**.
+Este projeto é um **pontapé inicial** para integrar o site com uma **API de leitura de cartões-resposta (OMR)**.
 Começa **simples**: o endpoint `/scan` devolve **respostas falsas** (mock) só para você testar o fluxo de upload → resposta JSON.
-Depois, você vai substituir pela leitura real com OpenCV.
+Depois, substitui pela leitura real com OpenCV.
 
 ---
 
